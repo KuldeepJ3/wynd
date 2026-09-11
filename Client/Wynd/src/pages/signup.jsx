@@ -13,11 +13,14 @@ function Signup() {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/signup', {
+            const API = axios.create({
+                baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000'
+            });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/signup`, {
                 name: formData.name,
                 email: formData.email,
                 password: formData.password
@@ -26,7 +29,7 @@ function Signup() {
             console.log("Response Data: ", response.data);
             alert(response.data.message);
             navigate('/login');
-            
+
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 alert(error.response.data.message)
@@ -41,10 +44,10 @@ function Signup() {
         <>
             {/* Dark mode background */}
             <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-                
+
                 {/* Dark mode card */}
-                <form 
-                    onSubmit={handleSubmit} 
+                <form
+                    onSubmit={handleSubmit}
                     className="bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-md flex flex-col border border-gray-700"
                 >
                     <h2 className="text-3xl font-extrabold text-white text-center mb-8">Create Account</h2>
@@ -62,7 +65,7 @@ function Signup() {
 
                     <label className="text-sm font-semibold text-gray-300 mb-1">Email</label>
                     <input
-                        type="email" 
+                        type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
@@ -76,7 +79,7 @@ function Signup() {
                     <div className="relative mb-8">
                         <input
                             // If showPassword is true, make it text. Otherwise, hide it as a password!
-                            type={showPassword ? "text" : "password"} 
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
@@ -105,8 +108,8 @@ function Signup() {
                     {/* Navigation to Login */}
                     <p className="text-center text-sm text-gray-400">
                         Already have an account?{' '}
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             onClick={() => navigate('/login')}
                             className="text-blue-400 hover:text-blue-300 font-semibold hover:underline focus:outline-none"
                         >
