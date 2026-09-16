@@ -10,7 +10,8 @@ function Cart() {
         const fetchCart = async () => {
             try {
                 const token = localStorage.getItem('Token');
-                const response = await axios.get('http://localhost:8000/add-to-cart', {
+                const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                const response = await axios.get(`${baseUrl}/add-to-cart`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (response.data.Success && response.data.cart) {
@@ -52,7 +53,8 @@ function Cart() {
             const token = localStorage.getItem('Token');
             
             // Calls your backend route we created earlier
-            const response = await axios.post('http://localhost:8000/create-order', {}, {
+            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const response = await axios.post(`${baseUrl}/create-order`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -90,7 +92,8 @@ function Cart() {
     const handleDeleteItem = async (productId) => {
         try {
             const token = localStorage.getItem('Token');
-            const response = await axios.delete(`http://localhost:8000/cart/remove/${productId}`, {
+            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const response = await axios.delete(`${baseUrl}/cart/remove/${productId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.data.success) {

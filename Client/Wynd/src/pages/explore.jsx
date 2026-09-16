@@ -21,7 +21,8 @@ function Explore() {
 
     const handleAddToCart = async(item) => {
         const token = localStorage.getItem('Token');
-        const response = await axios.post('http://localhost:8000/add-to-cart', {
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const response = await axios.post(`${baseUrl}/add-to-cart` , {
             id: item.id,
             name: item.name, 
             price: item.price
