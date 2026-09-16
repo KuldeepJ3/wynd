@@ -6,11 +6,13 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import MercedesCar from '../Components/MercedesCar';
+import { LoadingContext } from "../Context/LoadingContext.jsx"
 import './pagesGCss.css';
 
 function Home() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const { setIsLoading } = useContext(LoadingContext)
 
     const handleLogout = () => {
         localStorage.removeItem('Token');
@@ -19,7 +21,12 @@ function Home() {
     };
 
     const handleExploreRedirect = () => {
-        navigate('/explore')
+        try{
+            setIsLoading(true);
+            navigate('/explore')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const featuredProducts = [

@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
+import { LoadingContext } from "../Context/LoadingContext.jsx"
 import axios from "axios";
 
 function Explore() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
+    const { setIsLoading } = useContext(LoadingContext)
 
     const showcaseItems = [
         { id: 1, name: "Chronos V-1", category: "Timepiece", price: "$4,200", tag: "Limited Edition" },

@@ -3,11 +3,13 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../Context/UserContext.jsx"
 import { jwtDecode } from 'jwt-decode'
+import { LoadingContext } from "../Context/LoadingContext.jsx"
 import './pagesGCss.css'
 
 function Login() {
     const [formData, setFormData] = useState({ email: "", password: "" })
     const [showPassword, setShowPassword] = useState(false) // 1. Added state for hide/show
+    const { setIsLoading } = useContext(LoadingContext)
 
     const navigate = useNavigate()
     const { setUser } = useContext(UserContext)
@@ -18,7 +20,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         try {
             const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
             const response = await axios.post(`${baseUrl}/login`, {
@@ -34,7 +36,7 @@ function Login() {
 
             const decodedUserData = jwtDecode(response.data.token)
             setUser(decodedUserData);
-            navigate('/home')
+            navigate('/')
 
         } catch (error) {
             if (error.response) {
@@ -42,10 +44,12 @@ function Login() {
                     alert(error.response.data.message);
                 } else {
                     alert("Something went wrong. Please try again.");
-                }
+                }   
             } else {
                 console.error("Login failed:", error);
             }
+        } finally{
+            setIsLoading(false);
         }
     }
 

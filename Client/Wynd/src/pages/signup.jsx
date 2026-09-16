@@ -1,11 +1,13 @@
 import { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom" // 1. Imported for navigation
+import { LoadingContext } from "../Context/LoadingContext.jsx"
 import './pagesGCss.css'
 
 function Signup() {
     const [formData, setFormData] = useState({ name: "", email: "", password: "" })
     const [showPassword, setShowPassword] = useState(false)
+    const { setIsLoading } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 
@@ -15,6 +17,7 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -35,6 +38,8 @@ function Signup() {
                 console.error("Signup failed:", error);
                 alert("Something went wrong. Please try again.");
             }
+        } finally{
+            setIsLoading(false);
         }
     }
 
