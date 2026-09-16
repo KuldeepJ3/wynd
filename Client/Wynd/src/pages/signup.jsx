@@ -17,10 +17,7 @@ function Signup() {
         e.preventDefault();
 
         try {
-            const API = axios.create({
-                baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000'
-            });
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/signup`, {
+            const response = await axios.post(`http://localhost:8000/signup`, {
                 name: formData.name,
                 email: formData.email,
                 password: formData.password

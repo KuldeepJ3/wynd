@@ -9,9 +9,10 @@ export default defineConfig({
     tailwindcss()
   ],
   proxy: {
-    '/app': {
+    '/': {
       target: 'http://localhost:8000',
       changeOrigin: true
     }
   }
 })
+  

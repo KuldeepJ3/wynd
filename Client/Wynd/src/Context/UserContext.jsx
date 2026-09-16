@@ -27,8 +27,12 @@ export function UserProvider({ children }) {
 
     }, []);
 
+    const updatedUserState = (updatedData) => {
+        setUser((prevUser) => ({ ...prevUser, ...updatedData }));
+    }
+
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, updatedUserState }}>
             {children}
         </UserContext.Provider>
     )

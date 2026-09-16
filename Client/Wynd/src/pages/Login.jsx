@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode'
 import './pagesGCss.css'
 
 function Login() {
-    const [formData, setFormData] = useState({email: "", password: "" })
+    const [formData, setFormData] = useState({ email: "", password: "" })
     const [showPassword, setShowPassword] = useState(false) // 1. Added state for hide/show
 
     const navigate = useNavigate()
@@ -16,15 +16,14 @@ function Login() {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-            const response = await axios.post(API_URL, {
+            const response = await axios.post("http://localhost:8000/login", {
                 email: formData.email,
                 password: formData.password
-            })  
+            })
 
             console.log("Response Data: ", response.data);
 
@@ -33,9 +32,8 @@ function Login() {
             alert(response.data.message);
 
             const decodedUserData = jwtDecode(response.data.token)
-            setUser(decodedUserData)    
-
-            navigate('/home', { replace: true })
+            setUser(decodedUserData);
+            navigate('/home')
 
         } catch (error) {
             if (error.response) {
@@ -54,12 +52,12 @@ function Login() {
         <>
             {/* Dark mode background */}
             <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-                
+
                 {/* Dark mode card */}
-                <form 
-                    onSubmit={handleSubmit} 
+                <form
+                    onSubmit={handleSubmit}
                     className="bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-md flex flex-col border border-gray-700"
-                >  
+                >
                     <h2 className="text-3xl font-extrabold text-white text-center mb-8">Welcome Back</h2>
 
                     <label className="text-sm font-semibold text-gray-300 mb-1">Email</label>
@@ -72,7 +70,7 @@ function Login() {
                         className="mb-5 px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-400"
                         placeholder="john@example.com"
                     />
-                    
+
                     <label className="text-sm font-semibold text-gray-300 mb-1">Password</label>
                     <div className="relative mb-8">
                         <input
@@ -103,16 +101,19 @@ function Login() {
                     </button>
 
                     {/* Navigation to Signup */}
-                    <p className="text-center text-sm text-gray-400">
+                    <div className="text-center text-sm text-gray-400">
                         Don't have an account?{' '}
-                        <button 
-                            type="button" 
-                            onClick={() => navigate('/signup')}
-                            className="text-blue-400 hover:text-blue-300 font-semibold hover:underline focus:outline-none"
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate('/signup');
+                            }}
+                            className="text-blue-400 hover:text-blue-300 font-semibold hover:underline focus:outline-none cursor-pointer"
                         >
                             Sign up here
                         </button>
-                    </p>
+                    </div>
                 </form>
             </div>
         </>

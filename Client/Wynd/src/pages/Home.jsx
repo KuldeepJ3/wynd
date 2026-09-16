@@ -13,10 +13,14 @@ function Home() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("Token");
+        localStorage.removeItem('Token');
         setUser(null);
-        navigate("/login");
+        window.location.href = '/login';
     };
+
+    const handleExploreRedirect = () => {
+        navigate('/explore')
+    }
 
     const featuredProducts = [
         { id: 1, name: "Minimalist Chronograph", price: "$129.00", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" },
@@ -69,8 +73,9 @@ function Home() {
                                 <span className="text-[11px] uppercase tracking-widest font-medium">{user ? user.name : "Account"}</span>
                             </button>
                             <div className="relative cursor-pointer text-gray-400 hover:text-white transition-colors p-2 bg-white/[0.03] rounded-full border border-white/[0.08]">
-                                <ShoppingCart className="h-4 w-4" />
-                                <span className="absolute -top-1 -right-1 bg-white text-black text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center">3</span>
+
+                            <ShoppingCart className="h-4 w-4" onClick={() => navigate('/cart')} />
+                                
                             </div>
                             <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors p-2 bg-white/[0.03] rounded-full border border-white/[0.08]">
                                 <LogOut className="h-4 w-4" />
@@ -138,7 +143,7 @@ function Home() {
                         <span className="text-[10px] tracking-[0.3em] uppercase text-gray-500">Portfolios</span>
                         <h2 className="text-3xl font-light text-white mt-1">Curated Collections</h2>
                     </div>
-                    <span className="text-xs uppercase tracking-widest text-gray-400 hover:text-white cursor-pointer flex items-center gap-1 group">
+                    <span className="text-xs uppercase tracking-widest text-gray-400 hover:text-white cursor-pointer flex items-center gap-1 group" onClick={handleExploreRedirect}>
                         Explore All <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                 </div>
@@ -179,9 +184,6 @@ function Home() {
                                     <h3 className="text-sm font-light text-gray-200 group-hover:text-white transition-colors">{product.name}</h3>
                                     <p className="text-xs font-light text-gray-400 mt-1">{product.price}</p>
                                 </div>
-                                <button onClick={() => alert(`Added ${product.name} to cart.`)} className="bg-white/[0.05] hover:bg-white text-gray-300 hover:text-black p-2 rounded-full border border-white/10 transition-all cursor-pointer">
-                                    <ShoppingCart className="h-4 w-4" />
-                                </button>
                             </div>
                         </motion.div>
                     ))}

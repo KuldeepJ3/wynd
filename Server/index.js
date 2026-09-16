@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express()
 const PORT = 8000;
@@ -13,6 +14,7 @@ app.use(cors({
 ConnectDB('mongodb://localhost:27017/Wynd')
 
 //So that it executes first(before route)
+app.use('/uploads', express.static('uploads'));
 app.use(express.json())
 app.use('/', router)
 
