@@ -11,8 +11,6 @@ const allowedOrigins = [
     'https://wyndecom01.vercel.app' // Your live Vercel frontend URL
 ];
 
-const cors = require('cors');
-
 app.use(cors({
     origin: true, // Automatically allows any frontend origin (localhost, Vercel previews, production)
     credentials: true
