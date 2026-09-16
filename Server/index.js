@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express()
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const cors = require('cors')
 const ConnectDB = require('./ConnectDB/connect') 
 const router = require('./Routes/routes')
@@ -11,20 +11,14 @@ const allowedOrigins = [
     'https://wyndecom01.vercel.app' // Your live Vercel frontend URL
 ];
 
+const cors = require('cors');
+
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
+    origin: true, // Automatically allows any frontend origin (localhost, Vercel previews, production)
     credentials: true
 }));
-
-ConnectDB('mongodb://localhost:27017/Wynd')
+const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/Wynd';
+ConnectDB(dbURI)
 
 //So that it executes first(before route)
 app.use('/uploads', express.static('uploads'));
