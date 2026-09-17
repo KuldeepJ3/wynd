@@ -96,9 +96,6 @@ function Home() {
             <header className="relative bg-[#050505] overflow-hidden border-b border-white/[0.06] pt-16 pb-20">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-white/[0.03] to-white/[0.07] rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="relative max-w-5xl mx-auto px-6 text-center">
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="inline-block text-[11px] uppercase tracking-[0.4em] text-gray-400 mb-4 border border-white/10 px-4 py-1.5 rounded-full bg-white/[0.02]">
-                        Edition 01 — Flagship Release
-                    </motion.div>
                     <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-5xl md:text-7xl font-extralight tracking-tight mb-6 text-white">
                         Catch the <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">Wynd</span>.
                     </motion.h1>
