@@ -15,8 +15,6 @@ if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
 function App() {
   return (
-    <div className="relative">
-      <CustomCursor />
       <BrowserRouter>
         <UserProvider>
           <Routes>
@@ -32,7 +30,6 @@ function App() {
           </Routes>
         </UserProvider>
       </BrowserRouter>
-    </div>
   );
 }
 
