@@ -3,6 +3,7 @@ const User = require('../Model/Model')
 const bcrypt = require('bcrypt') //PassWord Hash
 const Cart = require('../Model/Cart')
 const Razorpay = require('razorpay')
+const Review = require('../Model/Reviews')
 
 async function handleSignUp(req, res) {
     const body = req.body;
@@ -190,6 +191,55 @@ async function handleCreateOrder(req, res) {
     }
 }
 
+const getProductReviews = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const reviews = await Review.find({ productId }).sort({ createdAt: -1 }); // Newest first
+        
+        res.status(200).json({
+            success: true,
+            reviews
+        });
+    } catch (error) {
+        console.error("Error fetching reviews:", error);
+        res.status(500).json({ success: false, message: "Server error while fetching reviews." });
+    }
+};
+
+// 2. POST: Add a new review for a product (Protected route requiring auth middleware)
+const addProductReview = async (req, res) => {
+    try {
+        const { productId, rating, comment } = req.body;
+        
+        // Assuming your auth middleware attaches the user object (with ID and name) to req.user
+        const userId = req.user._id; 
+        const userName = req.user.name || "Anonymous";
+
+        if (!productId || !rating || !comment) {
+            return res.status(400).json({ success: false, message: "All fields are required." });
+        }
+
+        const newReview = new Review({
+            productId,
+            userId,
+            userName,
+            rating,
+            comment
+        });
+
+        await newReview.save();
+
+        res.status(201).json({
+            success: true,
+            message: "Review added successfully!",
+            review: newReview
+        });
+    } catch (error) {
+        console.error("Error saving review:", error);
+        res.status(500).json({ success: false, message: "Server error while saving review." });
+    }
+};
+
 
 module.exports = {
     handleSignUp,
@@ -198,5 +248,7 @@ module.exports = {
     handleAddToCart,
     handleGetCart,
     handleRemoveCartItem,
-    handleCreateOrder
+    handleCreateOrder,
+    getProductReviews,
+    addProductReview
 }

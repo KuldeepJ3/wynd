@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import { LoadingContext } from "../Context/LoadingContext.jsx";
@@ -11,10 +11,7 @@ function Explore() {
 
     // State for managing the selected item modal & reviews
     const [selectedItem, setSelectedItem] = useState(null);
-    const [reviews, setReviews] = useState([
-        { id: 1, user: "Alex M.", comment: "Absolute masterpiece of craftsmanship!", rating: 5 },
-        { id: 2, user: "Sarah K.", comment: "Exceeded my expectations entirely.", rating: 5 }
-    ]);
+    const [reviews, setReviews] = useState([]);
     const [newReviewText, setNewReviewText] = useState("");
     const [newRating, setNewRating] = useState(5);
 
@@ -102,8 +99,27 @@ function Explore() {
         },
     ];
 
+    // Fetch reviews whenever a product is selected
+    useEffect(() => {
+        if (!selectedItem) return;
+
+        const fetchReviews = async () => {
+            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            try {
+                const response = await axios.get(`${baseUrl}/${selectedItem.id}`);
+                if (response.data.success) {
+                    setReviews(response.data.reviews);
+                }
+            } catch (error) {
+                console.error("Failed to load reviews:", error);
+            }
+        };
+
+        fetchReviews();
+    }, [selectedItem]);
+
     const handleAddToCart = async(item, e) => {
-        if (e) e.stopPropagation(); // Prevent opening modal when clicking button
+        if (e) e.stopPropagation(); 
         const token = localStorage.getItem('Token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         
@@ -126,19 +142,34 @@ function Explore() {
         }
     };
 
-    const handleAddReview = (e) => {
+    const handleAddReview = async (e) => {
         e.preventDefault();
-        if (!newReviewText.trim()) return;
+        if (!newReviewText.trim() || !selectedItem) return;
 
-        const newReviewObj = {
-            id: reviews.length + 1,
-            user: user?.name || "Anonymous User",
-            comment: newReviewText,
-            rating: Number(newRating)
-        };
+        const token = localStorage.getItem('Token');
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-        setReviews([newReviewObj, ...reviews]);
-        setNewReviewText("");
+        try {
+            const response = await axios.post(`${baseUrl}/add`, {
+                productId: selectedItem.id,
+                rating: Number(newRating),
+                comment: newReviewText
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.data.success) {
+                // Append the newly created review to the list instantly
+                setReviews([response.data.review, ...reviews]);
+                setNewReviewText("");
+                alert("Review submitted successfully!");
+            }
+        } catch (error) {
+            console.error("Failed to submit review:", error);
+            alert("Failed to post review. Please ensure you are logged in.");
+        }
     };
 
     return (
@@ -222,7 +253,7 @@ function Explore() {
                                         <p className="text-amber-400 text-sm font-semibold">{item.price}</p>
                                         <div className="flex items-center gap-1 text-amber-400 text-xs">
                                             <span>★</span>
-                                            <span className="text-zinc-400">4.9 (128)</span>
+                                            <span className="text-zinc-400">4.9</span>
                                         </div>
                                     </div>
                                 </div>
@@ -284,15 +315,19 @@ function Explore() {
                             <h3 className="text-lg font-light text-white">Customer Reviews</h3>
 
                             <div className="space-y-3 max-h-48 overflow-y-auto pr-2">
-                                {reviews.map((rev) => (
-                                    <div key={rev.id} className="bg-zinc-950/60 p-4 rounded-2xl border border-zinc-800/60 space-y-1">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-medium text-white">{rev.user}</span>
-                                            <span className="text-amber-400 text-xs">{"★".repeat(rev.rating)}</span>
+                                {reviews.length === 0 ? (
+                                    <p className="text-xs text-zinc-500 italic">No reviews yet. Be the first to review this item!</p>
+                                ) : (
+                                    reviews.map((rev) => (
+                                        <div key={rev._id} className="bg-zinc-950/60 p-4 rounded-2xl border border-zinc-800/60 space-y-1">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-xs font-medium text-white">{rev.userName}</span>
+                                                <span className="text-amber-400 text-xs">{"★".repeat(rev.rating)}</span>
+                                            </div>
+                                            <p className="text-xs text-zinc-400 font-light">{rev.comment}</p>
                                         </div>
-                                        <p className="text-xs text-zinc-400 font-light">{rev.comment}</p>
-                                    </div>
-                                ))}
+                                    ))
+                                )}
                             </div>
 
                             {/* Add Review Form */}
