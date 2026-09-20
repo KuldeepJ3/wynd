@@ -16,87 +16,237 @@ function Explore() {
     const [newRating, setNewRating] = useState(5);
 
     const showcaseItems = [
-        { 
-            id: 1, 
-            name: "Chronos V-1", 
-            category: "Timepiece", 
-            price: "$4,200", 
-            tag: "Limited Edition", 
+        // --- CATEGORY: Timepiece (3 items) ---
+        {
+            id: 1,
+            name: "Chronos V-1",
+            category: "Timepiece",
+            price: "$4,200",
+            tag: "Limited Edition",
             image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
             description: "A precision-engineered luxury timepiece built with aerospace-grade materials and automatic kinetic movement."
         },
-        { 
-            id: 2, 
-            name: "Apex Carbon Cruiser", 
-            category: "Mobility", 
-            price: "$8,500", 
-            tag: "Handcrafted", 
-            image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&auto=format&fit=crop&q=80",
-            description: "Lightweight carbon-fiber urban cruiser designed for high performance and sleek aesthetics."
+        {
+            id: 2,
+            name: "Aurelia Tourbillon",
+            category: "Timepiece",
+            price: "$12,500",
+            tag: "Masterpiece",
+            image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80",
+            description: "An intricate open-heart tourbillon watch showcasing absolute horological excellence."
         },
-        { 
-            id: 3, 
-            name: "Obsidian Masterpiece", 
-            category: "Audio", 
-            price: "$2,800", 
-            tag: "Acoustic Excellence", 
+        {
+            id: 3,
+            name: "Ember Chronograph",
+            category: "Timepiece",
+            price: "$3,100",
+            tag: "Bespoke",
+            image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80",
+            description: "Rose gold casing paired with a deep obsidian dial and precision sub-dials."
+        },
+
+        // --- CATEGORY: Audio (3 items) ---
+        {
+            id: 4,
+            name: "Obsidian Masterpiece",
+            category: "Audio",
+            price: "$2,800",
+            tag: "Acoustic Excellence",
             image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
             description: "Studio-grade acoustic headphones delivering immersive soundscapes wrapped in obsidian trim."
         },
-        { 
-            id: 4, 
-            name: "Helios Gold Espresso", 
-            category: "Living", 
-            price: "$1,950", 
-            tag: "Bespoke", 
-            image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80",
-            description: "Hand-polished gold espresso machine for barista-quality extractions at home."
-        },
-        { 
-            id: 5, 
-            name: "Vanguard Kinetic Desk", 
-            category: "Workspace", 
-            price: "$3,400", 
-            tag: "Ergonomic", 
-            image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&auto=format&fit=crop&q=80",
-            description: "Smart motorized sit-stand desk crafted from sustainable solid walnut."
-        },
-        { 
-            id: 6, 
-            name: "Aether Pendant Lamp", 
-            category: "Lighting", 
-            price: "$1,200", 
-            tag: "Minimalist", 
-            image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
-            description: "Ambient suspended lighting fixture casting a warm, glare-free aura."
-        },
-        { 
-            id: 7, 
-            name: "Zenith Titanium Case", 
-            category: "Travel", 
-            price: "$980", 
-            tag: "Ultra-Durable", 
-            image: "https://images.unsplash.com/photo-1581557991964-125469da3b8a?w=600&auto=format&fit=crop&q=80",
-            description: "Crushproof titanium travel case built to accompany you across the globe."
-        },
-        { 
-            id: 8, 
-            name: "Nova Acoustic Pods", 
-            category: "Audio", 
-            price: "$650", 
-            tag: "Hi-Res Audio", 
+        {
+            id: 5,
+            name: "Nova Acoustic Pods",
+            category: "Audio",
+            price: "$650",
+            tag: "Hi-Res Audio",
             image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80",
             description: "True wireless earbuds featuring active noise cancellation and pristine tuning."
         },
-        { 
-            id: 9, 
-            name: "Solis Chef Knife Set", 
-            category: "Culinary", 
-            price: "$1,450", 
-            tag: "Damascus Steel", 
+        {
+            id: 6,
+            name: "Sonora Valve Amplifier",
+            category: "Audio",
+            price: "$4,900",
+            tag: "Audiophile",
+            image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80",
+            description: "Hand-wired vacuum tube amplifier delivering warm, rich analog audio depth."
+        },
+
+        // --- CATEGORY: Mobility (3 items) ---
+        {
+            id: 7,
+            name: "Apex Carbon Cruiser",
+            category: "Mobility",
+            price: "$8,500",
+            tag: "Handcrafted",
+            image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&auto=format&fit=crop&q=80",
+            description: "Lightweight carbon-fiber urban cruiser designed for high performance and sleek aesthetics."
+        },
+        {
+            id: 8,
+            name: "Veloce Urban e-Bike",
+            category: "Mobility",
+            price: "$3,800",
+            tag: "Electric",
+            image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600&auto=format&fit=crop&q=80",
+            description: "Sleek commuter e-bike blending seamless battery integration with agile handling."
+        },
+        {
+            id: 9,
+            name: "Strata Titanium Scooter",
+            category: "Mobility",
+            price: "$1,650",
+            tag: "Foldable",
+            image: "https://images.unsplash.com/photo-1558980664-3a031cf67ea8?w=600&auto=format&fit=crop&q=80",
+            description: "Ultra-portable aerospace-grade titanium kick scooter built for city streets."
+        },
+
+        // --- CATEGORY: Living (3 items) ---
+        {
+            id: 10,
+            name: "Helios Gold Espresso",
+            category: "Living",
+            price: "$1,950",
+            tag: "Bespoke",
+            image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80",
+            description: "Hand-polished gold espresso machine for barista-quality extractions at home."
+        },
+        {
+            id: 11,
+            name: "Luminary Ceramic Vase",
+            category: "Living",
+            price: "$450",
+            tag: "Hand-Thrown",
+            image: "https://images.unsplash.com/photo-1612196808214-b8e1d6145a5f?w=600&auto=format&fit=crop&q=80",
+            description: "Minimalist matte ceramic vessel crafted by master European artisans."
+        },
+        {
+            id: 12,
+            name: "Kashmir Cashmere Throw",
+            category: "Living",
+            price: "$820",
+            tag: "Luxury Comfort",
+            image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600&auto=format&fit=crop&q=80",
+            description: "Plush, ultra-soft pure cashmere throw blanket designed for modern interiors."
+        },
+
+        // --- CATEGORY: Workspace (3 items) ---
+        {
+            id: 13,
+            name: "Vanguard Kinetic Desk",
+            category: "Workspace",
+            price: "$3,400",
+            tag: "Ergonomic",
+            image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=600&auto=format&fit=crop&q=80",
+            description: "Smart motorized sit-stand desk crafted from sustainable solid walnut."
+        },
+        {
+            id: 14,
+            name: "Atelier Leather Blotter",
+            category: "Workspace",
+            price: "$290",
+            tag: "Full-Grain",
+            image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+            description: "Hand-stitched full-grain leather desk mat that protects and elevates your workspace."
+        },
+        {
+            id: 15,
+            name: "Orbit Brass Lamp",
+            category: "Workspace",
+            price: "$680",
+            tag: "Adjustable",
+            image: "https://images.unsplash.com/photo-1534349762230-10cadf05cfd1?w=600&auto=format&fit=crop&q=80",
+            description: "Solid brushed brass task light featuring dimmable ambient temperature control."
+        },
+
+        // --- CATEGORY: Lighting (3 items) ---
+        {
+            id: 16,
+            name: "Aether Pendant Lamp",
+            category: "Lighting",
+            price: "$1,200",
+            tag: "Minimalist",
+            image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
+            description: "Ambient suspended lighting fixture casting a warm, glare-free aura."
+        },
+        {
+            id: 17,
+            name: "Eclipse Wall Sconce",
+            category: "Lighting",
+            price: "$750",
+            tag: "Geometric",
+            image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&auto=format&fit=crop&q=80",
+            description: "Architectural wall fixture diffusing soft, halo-like illumination."
+        },
+        {
+            id: 18,
+            name: "Prism Crystal Chandelier",
+            category: "Lighting",
+            price: "$4,500",
+            tag: "Statement Piece",
+            image: "https://images.unsplash.com/photo-1543257580-726e5d0fc2b2?w=600&auto=format&fit=crop&q=80",
+            description: "Hand-cut optical crystal pendants suspended in a modern geometric brass frame."
+        },
+
+        // --- CATEGORY: Travel (3 items) ---
+        {
+            id: 19,
+            name: "Zenith Titanium Case",
+            category: "Travel",
+            price: "$980",
+            tag: "Ultra-Durable",
+            image: "https://images.unsplash.com/photo-1581557991964-125469da3b8a?w=600&auto=format&fit=crop&q=80",
+            description: "Crushproof titanium travel case built to accompany you across the globe."
+        },
+        {
+            id: 20,
+            name: "Nomad Leather Duffle",
+            category: "Travel",
+            price: "$740",
+            tag: "Vegetable-Tanned",
+            image: "https://images.unsplash.com/photo-1545128485-c400e7702796?w=600&auto=format&fit=crop&q=80",
+            description: "Spacious weekend duffle crafted from supple, weather-resistant leather."
+        },
+        {
+            id: 21,
+            name: "Voyager Tech Folio",
+            category: "Travel",
+            price: "$320",
+            tag: "Organized",
+            image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&auto=format&fit=crop&q=80",
+            description: "Waterproof organizer pouch designed to keep cords, chargers, and passports secure."
+        },
+
+        // --- CATEGORY: Culinary (3 items) ---
+        {
+            id: 22,
+            name: "Solis Chef Knife Set",
+            category: "Culinary",
+            price: "$1,450",
+            tag: "Damascus Steel",
             image: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=600&auto=format&fit=crop&q=80",
             description: "Hand-forged Damascus steel blades paired with ergonomic handles."
         },
+        {
+            id: 23,
+            name: "Cast Iron Dutch Oven",
+            category: "Culinary",
+            price: "$350",
+            tag: "Enamelled",
+            image: "https://images.unsplash.com/photo-1584936353982-fbc4ebd4534e?w=600&auto=format&fit=crop&q=80",
+            description: "Heavy-duty enamelled cast iron pot engineered for exceptional heat retention."
+        },
+        {
+            id: 24,
+            name: "Himalayan Salt Grilling Block",
+            category: "Culinary",
+            price: "$180",
+            tag: "Gourmet",
+            image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&auto=format&fit=crop&q=80",
+            description: "Pure mineral salt slab used for searing, curing, and naturally seasoning foods."
+        }
     ];
 
     // Fetch reviews whenever a product is selected
@@ -118,15 +268,15 @@ function Explore() {
         fetchReviews();
     }, [selectedItem]);
 
-    const handleAddToCart = async(item, e) => {
-        if (e) e.stopPropagation(); 
+    const handleAddToCart = async (item, e) => {
+        if (e) e.stopPropagation();
         const token = localStorage.getItem('Token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-        
+
         try {
             const response = await axios.post(`${baseUrl}/add-to-cart`, {
                 id: item.id,
-                name: item.name, 
+                name: item.name,
                 price: item.price
             }, {
                 headers: {
@@ -134,7 +284,7 @@ function Explore() {
                 }
             });
 
-            if(response.data.Success){
+            if (response.data.Success) {
                 alert("Item Added Successfully!!");
             }
         } catch (error) {
@@ -161,7 +311,6 @@ function Explore() {
             });
 
             if (response.data.success) {
-                // Append the newly created review to the list instantly
                 setReviews([response.data.review, ...reviews]);
                 setNewReviewText("");
                 alert("Review submitted successfully!");
@@ -310,6 +459,33 @@ function Explore() {
                             </p>
                         </div>
 
+                        {/* RECOMMENDED PICKS SECTION (Same Category) */}
+                        <div className="space-y-3 border-t border-zinc-800 pt-6">
+                            <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Recommended Picks in {selectedItem.category}</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {showcaseItems
+                                    .filter(item => item.category === selectedItem.category && item.id !== selectedItem.id)
+                                    .map((recItem) => (
+                                        <div 
+                                            key={recItem.id}
+                                            onClick={() => setSelectedItem(recItem)}
+                                            className="bg-zinc-950/60 p-3 rounded-2xl border border-zinc-800/60 hover:border-amber-500/40 transition flex items-center gap-3 cursor-pointer group"
+                                        >
+                                            <img 
+                                                src={recItem.image} 
+                                                alt={recItem.name} 
+                                                className="w-14 h-14 rounded-xl object-cover shrink-0 group-hover:scale-105 transition"
+                                            />
+                                            <div className="overflow-hidden">
+                                                <h4 className="text-xs font-medium text-white truncate">{recItem.name}</h4>
+                                                <p className="text-xs text-amber-400 font-semibold mt-0.5">{recItem.price}</p>
+                                                <span className="text-[10px] text-zinc-500 truncate block">{recItem.tag}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+
                         {/* Reviews Section */}
                         <div className="space-y-4 border-t border-zinc-800 pt-6">
                             <h3 className="text-lg font-light text-white">Customer Reviews</h3>
@@ -386,4 +562,4 @@ function Explore() {
     );
 }
 
-export default Explore;
+export default Explore
